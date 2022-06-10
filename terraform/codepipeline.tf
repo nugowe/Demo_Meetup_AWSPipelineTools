@@ -1,7 +1,7 @@
 
 resource "aws_codepipeline" "tf_codepipeline" {
   name     = var.tf_codepipeline_name
-  role_arn = aws_iam_role.codepipeline_role.arn
+  role_arn = data.aws_iam_role.codepipeline_role.arn
 
   artifact_store {
     location = var.codepipeline_artifact_bucket
