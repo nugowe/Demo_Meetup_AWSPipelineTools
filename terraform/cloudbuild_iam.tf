@@ -149,7 +149,7 @@ data "aws_iam_role" "tf_iam_assumed_role" {
 }
 
 data "aws_iam_policy" "tf_iam_assumed_policy" {
-  name = aws_iam_policy.tf_iam_assumed_policy.arn
+  name = "${aws_iam_policy.tf_iam_assumed_policy.arn}"
 }
 
 
