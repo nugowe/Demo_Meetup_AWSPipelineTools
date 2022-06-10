@@ -77,23 +77,7 @@ policy = jsonencode({
 
 
 
-# Create IAM role for Terraform builder to assume
-resource "aws_iam_role" "tf_iam_assumed_role" {
-  name = "TerraformAssumedIamRole"
 
-assume_role_policy = jsonencode({
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": data.aws_iam_role.codebuild.arn
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-  })
-}
 
 
 # Create broad IAM policy Terraform to use to build, modify resources
