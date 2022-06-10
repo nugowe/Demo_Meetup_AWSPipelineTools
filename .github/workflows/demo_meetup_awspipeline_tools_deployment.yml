@@ -24,6 +24,7 @@ jobs:
       run: |
         echo "Creating Bucket: ${{ secrets.TF_STATE_BUCKET }}"
         aws s3api create-bucket --bucket ${{ secrets.TF_STATE_BUCKET }} --region ${{ secrets.AWS_DEFAULT_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_DEFAULT_REGION }}|| true
+        aws s3api create-bucket --bucket codepipelinepractice1 --region ${{ secrets.AWS_DEFAULT_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_DEFAULT_REGION }}|| true
 
     - name: Terraform Init
       uses: hashicorp/terraform-github-actions/init@v0.4.0

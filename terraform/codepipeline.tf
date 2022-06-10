@@ -1,16 +1,10 @@
 
-
-resource "aws_s3_bucket" "tf_codepipeline_artifact_bucket" {
-  bucket = "codepipelinepractice1"
-}
-
-
 resource "aws_codepipeline" "tf_codepipeline" {
   name     = var.tf_codepipeline_name
   role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {
-    location = aws_s3_bucket.tf_codepipeline_artifact_bucket.bucket
+    location = var.codepipeline_artifact_bucket
     type     = "S3"
   }
 

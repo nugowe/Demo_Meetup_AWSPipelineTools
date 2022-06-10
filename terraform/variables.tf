@@ -67,6 +67,10 @@ variable "cluster_service" {
   default = "cb-service"
 }
 
+variable "codepipeline_artifact_bucket" {
+  type    = string
+  default = "codepipelinepractice1"
+}
 
 
 
