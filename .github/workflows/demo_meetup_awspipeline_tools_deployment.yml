@@ -39,11 +39,8 @@ jobs:
     - name: Terraform Validate
       uses: hashicorp/terraform-github-actions/validate@v0.3.7
     
-    - name: Terraform Import
-      run: |
-        terraform import 'aws_codebuild_project.codebuild_project_terraform_plan.name ["demo_meetup_codebuild:8f1da84e-3b87-45dc-8c1e-ea9d21808c80"]'
-
-    
+   
+        
     - name: Terraform Apply
       uses: hashicorp/terraform-github-actions/apply@v0.4.0
       env:
