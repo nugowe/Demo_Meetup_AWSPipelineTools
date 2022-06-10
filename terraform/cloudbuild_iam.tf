@@ -1,10 +1,4 @@
 
-resource "aws_s3_bucket" "codebuild" {
-  bucket = "codebuildpractice1"
-}
-
-
-
 resource "aws_iam_role" "example" {
   name = "meetup_demo"
 
