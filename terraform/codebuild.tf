@@ -1,12 +1,22 @@
-resource "aws_instance" "codebuild" {
+
+resource "null_resource" "run-build-task" {
   
 
+
+  # run the task
   provisioner "local-exec" {
-    command = "terraform import -config=https://demo-meetup-awspipeline-tools-state-files.s3.us-east-2.amazonaws.com/demo-meetup-awspipeline-tools-state-files 'aws_codebuild_project.codebuild_project_terraform_plan.name ["demo_meetup_codebuild:8f1da84e-3b87-45dc-8c1e-ea9d21808c80"]'"
+    command = <<EOF
+    terraform import -config=https://demo-meetup-awspipeline-tools-state-files.s3.us-east-2.amazonaws.com/demo-meetup-awspipeline-tools-state-files 'aws_codebuild_project.codebuild_project_terraform_plan.name ["demo_meetup_codebuild:8f1da84e-3b87-45dc-8c1e-ea9d21808c80"]'
 
     
   }
+
+EOF
+  }
+
+
 }
+
 
 
 resource "aws_codebuild_project" "codebuild_project_terraform_plan" {
