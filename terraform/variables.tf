@@ -28,7 +28,7 @@ variable "terraform_codecommit_repo_name" {
 
 variable "codebuild_terraform_plan_name" {
   type    = string
-  default = "demo_meetup_codebuild"
+  default = "demo_meetup_codebuild_deployment"
 }
 
 
