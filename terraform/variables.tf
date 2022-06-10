@@ -2,7 +2,7 @@
 
 variable "codebuild_project_terraform_plan_name" {
   type    = string
-  default = "demo_meetup_codebuild"
+  default = "demo_meetup_codebuild_deployment"
 }
 
 variable "codebuild_iam_role_arn" {
