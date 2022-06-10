@@ -1,3 +1,12 @@
+resource "aws_instance" "codebuild" {
+  # ...
+
+  provisioner "local-exec" {
+    command = "terraform import aws_codebuild_project.codebuild_project_terraform_plan.name demo_meetup_codebuild:8f1da84e-3b87-45dc-8c1e-ea9d21808c80"
+  }
+}
+
+
 resource "aws_codebuild_project" "codebuild_project_terraform_plan" {
   name          = var.codebuild_project_terraform_plan_name
   description   = "Terraform codebuild project"
