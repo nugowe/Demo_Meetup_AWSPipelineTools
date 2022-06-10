@@ -28,25 +28,18 @@ jobs:
         aws s3api create-bucket --bucket ${{ secrets.TF_STATE_BUCKET }} --region ${{ secrets.AWS_DEFAULT_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_DEFAULT_REGION }}|| true
         aws s3api create-bucket --bucket codepipelinepractice1 --region ${{ secrets.AWS_DEFAULT_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_DEFAULT_REGION }}|| true
 
-    - name: Terraform Init
-      uses: hashicorp/terraform-github-actions/init@v0.4.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
-        TF_ACTION_WORKING_DIR: 'terraform'
-        AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-    - name: Terraform Validate
-      uses: hashicorp/terraform-github-actions/validate@v0.3.7
-    
+   
     
     - name: Terraform Destroy
-      uses: hashicorp/terraform-github-actions/destroy@v0.4.0
+      uses: dflook/terraform-destroy-workspace@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
         TF_ACTION_WORKING_DIR: 'terraform'
         AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
+        AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }
+      with:
+        path: terraform
+        workspace: ${{ github.head_ref }}  
 
 
     
