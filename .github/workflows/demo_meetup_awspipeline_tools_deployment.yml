@@ -12,39 +12,37 @@ on:
 jobs:
   meetupdeployawscicd:
     runs-on: ubuntu-18.04
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
+      TF_ACTION_WORKING_DIR: 'terraform'
+      AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Setup Terraform                                                                      
+        uses: hashicorp/setup-terraform@v1
 
-    
+      - name: Terraform Init
+        id: init
+        run: terraform init  
 
-    - name: Create TF State Bucket
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
-        TF_ACTION_WORKING_DIR: 'terraform'
-        AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: |
-        echo "Creating Bucket: ${{ secrets.TF_STATE_BUCKET }}"
-        aws s3api create-bucket --bucket ${{ secrets.TF_STATE_BUCKET }} --region ${{ secrets.AWS_DEFAULT_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_DEFAULT_REGION }}|| true
-        aws s3api create-bucket --bucket codepipelinepractice1 --region ${{ secrets.AWS_DEFAULT_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_DEFAULT_REGION }}|| true
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'push'
+        run: terraform plan -no-color
+        continue-on-error: true
+        
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+        
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve
 
-    - name: Terraform Init
-      uses: hashicorp/terraform-github-actions/init@v0.4.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
-        TF_ACTION_WORKING_DIR: 'terraform'
-        AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-    - name: Terraform Validate
-      uses: hashicorp/terraform-github-actions/validate@v0.3.7
-
-    - name: Setup Terraform                                                                      
-      uses: hashicorp/setup-terraform@v1
-    
-    - name: Terraform Destroy
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform destroy -auto-approve
     
     
     
