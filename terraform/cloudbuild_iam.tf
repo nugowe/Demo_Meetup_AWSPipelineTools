@@ -27,7 +27,7 @@ EOF
 # Create an IAM role policy for CodeBuild to use implicitly
 resource "aws_iam_role_policy" "codebuild_iam_role_policy" {
   name = "code_build_iam_policy_meetup_demo"
-  role = "meetup_demo"
+  role = aws_iam_role.example.name
 
 policy = jsonencode({
     "Version": "2012-10-17",
