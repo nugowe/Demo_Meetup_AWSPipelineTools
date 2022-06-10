@@ -148,7 +148,7 @@ data "aws_iam_role" "tf_iam_assumed_role" {
   name = "TerraformAssumedIamRole"
 }
 
-data "aws_iam_role" "tf_iam_assumed_policy" {
+data "aws_iam_policy" "tf_iam_assumed_policy" {
   name = "TerraformAssumedIamPolicy"
 }
 
