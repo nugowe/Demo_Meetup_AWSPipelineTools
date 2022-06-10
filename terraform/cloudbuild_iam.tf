@@ -1,23 +1,4 @@
 
-resource "aws_iam_role" "example" {
-  name = "meetup_demo"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "codebuild.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
-}
-
 # Create an IAM role policy for CodeBuild to use implicitly
 resource "aws_iam_role_policy" "codebuild_iam_role_policy" {
   name = "code_build_iam_policy_meetup_demo"
