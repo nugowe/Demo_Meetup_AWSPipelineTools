@@ -79,7 +79,6 @@ policy = jsonencode({
 
 
 
-
 # Create broad IAM policy Terraform to use to build, modify resources
 resource "aws_iam_policy" "tf_iam_assumed_policy" {
   name = "TerraformAssumedIamPolicy"
