@@ -87,7 +87,7 @@ assume_role_policy = jsonencode({
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "${aws_iam_role.example.arn}"
+        "AWS": data.aws_iam_role.codebuild.arn
       },
       "Action": "sts:AssumeRole"
     }
