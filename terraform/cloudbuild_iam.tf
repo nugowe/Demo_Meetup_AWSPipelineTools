@@ -4,7 +4,7 @@ data "aws_iam_role" "codebuild" {
 }
 
 
- data "aws_iam_role" "tf_iam_assumed_role" {
+data "aws_iam_role" "tf_iam_assumed_role" {
   name = "TerraformAssumedIamRole"
 }
 
