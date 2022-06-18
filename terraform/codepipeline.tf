@@ -1,5 +1,8 @@
 
 resource "aws_codepipeline" "tf_codepipeline" {
+  depends_on = [
+    aws_ecr_repository.demo.arn
+  ]
   name     = var.tf_codepipeline_name
   role_arn = data.aws_iam_role.codepipeline_role.arn
 
