@@ -1,7 +1,7 @@
 
 resource "aws_codebuild_project" "codebuild_project_terraform_plan" {
   depends_on = [
-    aws_iam_role_policy.example
+    aws_ecr_repository.demo.arn
   ]
   name          = var.codebuild_project_terraform_plan_name
   description   = "Terraform codebuild project"
